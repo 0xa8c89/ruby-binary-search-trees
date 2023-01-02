@@ -37,12 +37,13 @@ class Tree
     @root = build_tree(data)
   end
 
-  def find(val, root = @root)
-    return root if root.data.equal?(val)
+  def find(val, node = root)
+    return node if node.data.equal?(val)
+    return false if node.right.nil? && node.left.nil?
 
-    # return find(val, root.left) if val < root.data
-    # return find(val, root.right) if val > root.data
-    val < root.data ? find(val, root.left) : find(val, root.right)
+    # return find(val, node.left) if val < node.data
+    # return find(val, node.right) if val > node.data
+    val < node.data ? find(val, node.left) : find(val, node.right)
   end
 
   def pretty_print(node = @root, prefix = '', is_left = true)
@@ -54,5 +55,4 @@ end
 
 tree = Tree.new([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324])
 tree.pretty_print
-p tree
-puts tree.find(7)
+puts tree.find(324)
