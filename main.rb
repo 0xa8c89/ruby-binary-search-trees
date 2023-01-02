@@ -23,7 +23,26 @@ class Tree
     root = Node.new(arr[mid])
     root.left = build_tree(arr[0...mid])
     root.right = build_tree(arr[mid + 1..])
+
     root
+  end
+
+  def insert(val)
+    @data << val unless @data.include?(val)
+    @root = build_tree(data)
+  end
+
+  def delete(val)
+    @data.delete(val)
+    @root = build_tree(data)
+  end
+
+  def find(val, root = @root)
+    return root if root.data.equal?(val)
+
+    # return find(val, root.left) if val < root.data
+    # return find(val, root.right) if val > root.data
+    val < root.data ? find(val, root.left) : find(val, root.right)
   end
 
   def pretty_print(node = @root, prefix = '', is_left = true)
@@ -35,3 +54,5 @@ end
 
 tree = Tree.new([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324])
 tree.pretty_print
+p tree
+puts tree.find(7)
