@@ -9,21 +9,20 @@ class Node
 end
 
 class Tree
-  attr_accessor :root
+  attr_accessor :root, :data
 
   def initialize(arr)
-    @arr = arr.uniq.sort
-    @root = build_tree(arr)
+    @data = arr.uniq.sort
+    @root = build_tree(data)
   end
 
-  def build_tree(arr = @arr)
+  def build_tree(arr = @data)
     return nil if arr.empty?
 
     mid = (arr.length - 1) / 2
     root = Node.new(arr[mid])
     root.left = build_tree(arr[0...mid])
     root.right = build_tree(arr[mid + 1..])
-
     root
   end
 
