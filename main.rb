@@ -27,6 +27,12 @@ class Tree
     root
   end
 
+  def pretty_print(node = @root, prefix = '', is_left = true)
+    pretty_print(node.right, "#{prefix}#{is_left ? '│   ' : '    '}", false) if node.right
+    puts "#{prefix}#{is_left ? '└── ' : '┌── '}#{node.data}"
+    pretty_print(node.left, "#{prefix}#{is_left ? '    ' : '│   '}", true) if node.left
+  end
+
   def insert(val)
     @data << val unless @data.include?(val)
     @root = build_tree(data)
@@ -44,12 +50,6 @@ class Tree
     # return find(val, node.left) if val < node.data
     # return find(val, node.right) if val > node.data
     val < node.data ? find(val, node.left) : find(val, node.right)
-  end
-
-  def pretty_print(node = @root, prefix = '', is_left = true)
-    pretty_print(node.right, "#{prefix}#{is_left ? '│   ' : '    '}", false) if node.right
-    puts "#{prefix}#{is_left ? '└── ' : '┌── '}#{node.data}"
-    pretty_print(node.left, "#{prefix}#{is_left ? '    ' : '│   '}", true) if node.left
   end
 end
 
