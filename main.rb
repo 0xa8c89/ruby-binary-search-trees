@@ -88,11 +88,16 @@ class Tree
     arr unless block_given?
   end
 
-  def height(node = root, count = 0)
-    return count if node.left.nil? && node.right.nil?
+  def height(node = root, count = -1)
+    # return count if node.left.nil? && node.right.nil?
 
-    height(node.left, count + 1) unless node.left.nil?
-    height(node.right, count + 1) unless node.right.nil?
+    # height(node.left, count + 1) unless node.left.nil?
+    # height(node.right, count + 1) unless node.right.nil?
+
+    return count if node.nil?
+
+    height(node.left, count + 1)
+    height(node.right, count + 1)
   end
 
   def depth(node = root, tree = root, count = 0)
@@ -107,7 +112,8 @@ class Tree
   end
 
   def balanced?
-    true # since there is no way for this tree to be unbalanced
+    true # always true since there is no way for this tree to be unbalanced
+    # due to it being rebalanced with each indert / delete
   end
 
   def rebalance
