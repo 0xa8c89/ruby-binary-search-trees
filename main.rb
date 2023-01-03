@@ -87,6 +87,13 @@ class Tree
     arr << node.data
     arr unless block_given?
   end
+
+  def height(node = root, tree = root, count = 0)
+    return count if node == tree
+    return -1 if tree.right.nil? || tree.left.nil?
+
+    [height(node, tree.right, count + 1), height(node, tree.left, count + 1)].max + 1
+  end
 end
 
 tree = Tree.new([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324])
@@ -94,6 +101,7 @@ tree.pretty_print
 # puts tree.find(324)
 # p(tree.level_order { |i| puts "----> #{i}" })
 # p tree.level_order
-p tree.inorder
-p tree.preorder
-p tree.postorder
+# p tree.inorder
+# p tree.preorder
+# p tree.postorder
+p tree.height(tree.root.right)
