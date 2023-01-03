@@ -65,10 +65,27 @@ class Tree
   end
 
   def inorder(node = root, arr = [])
+    yield node if block_given?
     inorder(node.left, arr) unless node.left.nil?
     arr << node.data
     inorder(node.right, arr) unless node.right.nil?
-    arr
+    arr unless block_given?
+  end
+
+  def preorder(node = root, arr = [])
+    yield node if block_given?
+    arr << node.data
+    preorder(node.left, arr) unless node.left.nil?
+    preorder(node.right, arr) unless node.right.nil?
+    arr unless block_given?
+  end
+
+  def postorder(node = root, arr = [])
+    yield node if block_given?
+    postorder(node.left, arr) unless node.left.nil?
+    postorder(node.right, arr) unless node.right.nil?
+    arr << node.data
+    arr unless block_given?
   end
 end
 
@@ -78,3 +95,5 @@ tree.pretty_print
 # p(tree.level_order { |i| puts "----> #{i}" })
 # p tree.level_order
 p tree.inorder
+p tree.preorder
+p tree.postorder
