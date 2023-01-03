@@ -88,11 +88,14 @@ class Tree
     arr unless block_given?
   end
 
-  def height(node = root, tree = root, count = 0)
-    return count if node == tree
-    return -1 if tree.right.nil? || tree.left.nil?
+  def height(node = root, count = 0)
+    return count if node.left.nil? && node.right.nil?
 
-    [height(node, tree.right, count + 1), height(node, tree.left, count + 1)].max + 1
+    height(node.left, count + 1) unless node.left.nil?
+    height(node.right, count + 1) unless node.right.nil?
+  end
+
+  def depth
   end
 end
 
@@ -104,4 +107,7 @@ tree.pretty_print
 # p tree.inorder
 # p tree.preorder
 # p tree.postorder
-p tree.height(tree.root.right)
+
+# temp = tree.root
+# p tree.height(temp)
+# p temp.data
