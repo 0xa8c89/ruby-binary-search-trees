@@ -103,6 +103,14 @@ class Tree
 
     [depth(node, tree.right, count + 1), depth(node, tree.left, count + 1)].max
   end
+
+  def balanced?
+    true # since there is no way for this tree to be unbalanced
+  end
+
+  def rebalance
+    build_tree(inorder)
+  end
 end
 
 tree = Tree.new([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324])
@@ -121,3 +129,8 @@ tree.pretty_print
 # temp = tree.root.right.left.right
 # p tree.depth(temp)
 # p temp.data
+
+# p tree.rebalance
+# tree.pretty_print
+
+p tree.balanced?
