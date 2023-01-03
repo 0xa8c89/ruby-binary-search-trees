@@ -51,8 +51,21 @@ class Tree
     # return find(val, node.right) if val > node.data
     val < node.data ? find(val, node.left) : find(val, node.right)
   end
+
+  def level_order(queue = [root], arr = [])
+    until queue.empty?
+      node = queue.shift
+      arr << node.data
+      yield node if block_given?
+
+      queue << node.left unless node.left.nil?
+      queue << node.right unless node.right.nil?
+    end
+    arr unless block_given?
+  end
 end
 
 tree = Tree.new([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324])
 tree.pretty_print
-puts tree.find(324)
+# puts tree.find(324)
+p(tree.level_order { |i| puts "----> #{i}" })
