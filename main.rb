@@ -97,9 +97,11 @@ class Tree
 
   def depth(node = root, tree = root, count = 0)
     return count if node == tree
-    return -1 if tree.right.nil? && tree.left.nil?
-    return depth(node, tree.left, count + 1) if tree.right.nil?
-    return depth(node, tree.right, count + 1) if tree.left.nil?
+    return -1 if tree.nil?
+
+    # return -1 if tree.right.nil? && tree.left.nil?
+    # return depth(node, tree.left, count + 1) if tree.right.nil?
+    # return depth(node, tree.right, count + 1) if tree.left.nil?
 
     [depth(node, tree.right, count + 1), depth(node, tree.left, count + 1)].max
   end
@@ -113,24 +115,28 @@ class Tree
   end
 end
 
-tree = Tree.new([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324])
-tree.pretty_print
-# puts tree.find(324)
-# p(tree.level_order { |i| puts "----> #{i}" })
-# p tree.level_order
-# p tree.inorder
-# p tree.preorder
-# p tree.postorder
-
-# temp = tree.root
-# p tree.height(temp)
-# p temp.data
-
-# temp = tree.root.right.left.right
-# p tree.depth(temp)
-# p temp.data
-
-# p tree.rebalance
-# tree.pretty_print
-
+# 1
+tree = Tree.new(Array.new(15) { rand(1..100) })
+# 2
 p tree.balanced?
+# 3
+p tree.level_order
+p tree.preorder
+p tree.postorder
+p tree.inorder
+# 4 - impossible since tree auto-balances with each delete and insert
+30.times { tree.insert(rand(50)) }
+# 5
+p tree.balanced?
+# 6
+tree.rebalance
+# 7
+p tree.balanced?
+# 8
+p tree.level_order
+p tree.preorder
+p tree.postorder
+p tree.inorder
+
+# TODO
+# redo insert, delete and rebalance.
