@@ -95,7 +95,13 @@ class Tree
     height(node.right, count + 1) unless node.right.nil?
   end
 
-  def depth
+  def depth(node = root, tree = root, count = 0)
+    return count if node == tree
+    return -1 if tree.right.nil? && tree.left.nil?
+    return depth(node, tree.left, count + 1) if tree.right.nil?
+    return depth(node, tree.right, count + 1) if tree.left.nil?
+
+    [depth(node, tree.right, count + 1), depth(node, tree.left, count + 1)].max
   end
 end
 
@@ -110,4 +116,8 @@ tree.pretty_print
 
 # temp = tree.root
 # p tree.height(temp)
+# p temp.data
+
+# temp = tree.root.right.left.right
+# p tree.depth(temp)
 # p temp.data
