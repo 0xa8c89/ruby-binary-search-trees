@@ -63,9 +63,18 @@ class Tree
     end
     arr unless block_given?
   end
+
+  def inorder(node = root, arr = [])
+    inorder(node.left, arr) unless node.left.nil?
+    arr << node.data
+    inorder(node.right, arr) unless node.right.nil?
+    arr
+  end
 end
 
 tree = Tree.new([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324])
 tree.pretty_print
 # puts tree.find(324)
-p(tree.level_order { |i| puts "----> #{i}" })
+# p(tree.level_order { |i| puts "----> #{i}" })
+# p tree.level_order
+p tree.inorder
